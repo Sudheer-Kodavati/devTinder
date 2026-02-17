@@ -1,13 +1,18 @@
 const express = require("express");
 
 const app = express();
+app.get("/user", (req, res) => {
+  res.send({ firstName: "Sai Sudheer", lastName: "Kodavati" });
+});
+app.post("/user", (req, res) => {
+  res.send("data is Successfully updated in DB");
+});
+app.delete("/user", (req, res) => {
+  res.send("data is Successfully Deleted in DB");
+});
 
 app.use("/test", (req, res) => {
   res.send("Hello from the server...");
-});
-
-app.use("/dash", (req, res) => {
-  res.send("Hello from the dashboard...");
 });
 
 app.listen(3000, () =>
