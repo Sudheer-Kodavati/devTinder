@@ -1,21 +1,27 @@
 const express = require("express");
+const User = require("./models/user");
+const connectDB = require("./config/database");
 const app = express();
 
-app.get("/getUserData", (req, res) => {
+app.use(express.json());
+
+app.post("/signup", async (req, res) => {
+  const user = new User(req.body);
   try {
-    throw new Error("hbhxbyhbfd");
-    res.send("user data sent");
+    await user.save();
+    res.send("user added  successfullly");
   } catch (err) {
-    res.status(500).send("Some thing went wrong contact support team");
+    res.status(400).send("Error saving the user:" + err.message);
   }
 });
 
-app.use("/", (err, req, res, next) => {
-  if (err) {
-    res.status(500).send("Some thing went wrong");
-  }
-});
-
-app.listen(3000, () =>
-  console.log("Server is successfully listening on port 3000...."),
-);
+connectDB()
+  .then(() => {
+    console.log("Database connection established!!");
+    app.listen(3000, () =>
+      console.log("Server is successfully listening on port 3000...."),
+    );
+  })
+  .catch((err) => {
+    console.log("Database cannot be connected !");
+  });
