@@ -16,6 +16,7 @@
 
 - POST /request/send/intrested/:userId
 - POST /request/send/IGNORED/:userId
+
 - POST /request/review/accepted/:requestId
 - POST /request/review/rejected/:rejectId
 
